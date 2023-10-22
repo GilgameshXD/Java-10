@@ -1,8 +1,8 @@
 public class Radio {
     private int maxChannel = 9;
-    private  int minChannel = 0;
-    private  int maxVolume = 100;
-    private  int minVolume = 0;
+    private final int minChannel = 0;
+    private final int maxVolume = 100;
+    private final int minVolume = 0;
     private int currentChannel = minChannel;
     private int currentVolume = minVolume;
 

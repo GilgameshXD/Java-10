@@ -1,8 +1,6 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.nio.channels.Channels;
-
 public class RadioTest {
 
     @Test
@@ -161,6 +159,7 @@ public class RadioTest {
         Assertions.assertEquals(0, radio.getMinChannel());
         Assertions.assertEquals(24, radio.getMaxChannel());
     }
+
     @Test
     public void shouldSetChannel0AfterLastChannel() {
         Radio channel = new Radio(20);
@@ -173,6 +172,7 @@ public class RadioTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
     public void shouldSetLastChannelBeforeChannel0() {
         Radio channel = new Radio(20);
@@ -186,7 +186,6 @@ public class RadioTest {
         Assertions.assertEquals(expected, actual);
 
     }
-
 
 
 }
