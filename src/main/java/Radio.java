@@ -1,17 +1,16 @@
 public class Radio {
-    private int maxChannel = 9;
     private final int minChannel = 0;
     private final int maxVolume = 100;
     private final int minVolume = 0;
+    private int maxChannel = 9;
     private int currentChannel = minChannel;
     private int currentVolume = minVolume;
 
-    public Radio(int count) {
-        this.maxChannel = count - 1;
+    public Radio(int maxChannel) {
+        this.maxChannel = maxChannel - 1;
     }
 
     public Radio() {
-
     }
 
     public int getMaxChannel() {
@@ -48,8 +47,8 @@ public class Radio {
         return currentVolume;
     }
 
-    public void setCurrentVolume(int newCurrentVolume) {
-        currentVolume = newCurrentVolume;
+    public void setCurrentVolume(int currentVolume) {
+        this.currentVolume = currentVolume;
     }
 
     public void nextChannel() {
