@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 public class RadioTest {
 
     @Test
@@ -20,11 +19,11 @@ public class RadioTest {
     @Test
     public void shouldSetChannel0AfterChannel9() {
         Radio channel = new Radio();
-        channel.setCurrentChannel(9);
+        channel.setCurrentChannel(channel.getMaxChannel());
 
         channel.nextChannel();
 
-        int expected = 0;
+        int expected = channel.getMinChannel();
         int actual = channel.getCurrentChannel();
 
         Assertions.assertEquals(expected, actual);
@@ -47,11 +46,11 @@ public class RadioTest {
     @Test
     public void shouldSetChannel9BeforeChannel0() {
         Radio channel = new Radio();
-        channel.setCurrentChannel(0);
+        channel.setCurrentChannel(channel.getMinChannel());
 
         channel.prevChannel();
 
-        int expected = 9;
+        int expected = channel.getMaxChannel();
         int actual = channel.getCurrentChannel();
 
         Assertions.assertEquals(expected, actual);
@@ -71,12 +70,12 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldSetChannelAboveMax() {
+    public void shouldNotSetChannelAboveMax() {
         Radio channel = new Radio();
         channel.setCurrentChannel(50);
 
 
-        int expected = 0;
+        int expected = channel.getMinChannel();
         int actual = channel.getCurrentChannel();
 
         Assertions.assertEquals(expected, actual);
@@ -84,12 +83,12 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldSetChannelBelowMin() {
+    public void shouldNotSetChannelBelowMin() {
         Radio channel = new Radio();
-        channel.setCurrentChannel(-5);
+        channel.setCurrentChannel(-1);
 
 
-        int expected = 0;
+        int expected = channel.getMinChannel();
         int actual = channel.getCurrentChannel();
 
         Assertions.assertEquals(expected, actual);
@@ -113,11 +112,11 @@ public class RadioTest {
     @Test
     public void shouldNotIncreaseVolumeAboveMax() {
         Radio volume = new Radio();
-        volume.setCurrentVolume(100);
+        volume.setCurrentVolume(volume.getMaxVolume());
 
         volume.increaseVolume();
 
-        int expected = 100;
+        int expected = volume.getMaxVolume();
         int actual = volume.getCurrentVolume();
 
         Assertions.assertEquals(expected, actual);
@@ -139,14 +138,49 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldDecreaseVolumeBelowMin() {
+    public void shouldNotDecreaseVolumeBelowMin() {
         Radio volume = new Radio();
         volume.setCurrentVolume(-1);
 
         volume.decreaseVolume();
 
-        int expected = 0;
+        int expected = volume.getMinVolume();
         int actual = volume.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void shouldSetChannelsCount() {
+        Radio radio = new Radio(25);
+
+        Assertions.assertEquals(0, radio.getMinChannel());
+        Assertions.assertEquals(24, radio.getMaxChannel());
+    }
+
+    @Test
+    public void shouldSetChannel0AfterLastChannel() {
+        Radio channel = new Radio(20);
+        channel.setCurrentChannel(channel.getMaxChannel());
+
+        channel.nextChannel();
+
+        int expected = channel.getMinChannel();
+        int actual = channel.getCurrentChannel();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetLastChannelBeforeChannel0() {
+        Radio channel = new Radio(20);
+        channel.setCurrentChannel(channel.getMinChannel());
+
+        channel.prevChannel();
+
+        int expected = channel.getMaxChannel();
+        int actual = channel.getCurrentChannel();
 
         Assertions.assertEquals(expected, actual);
 
